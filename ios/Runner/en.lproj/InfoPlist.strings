@@ -1,0 +1,13 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by Willy Liu on 2021/6/23.
+  
+*/
+CFBundleDisplayName="Tergasy Fitness";
+NSBluetoothAlwaysUsageDescription="The app needs your permission to connect peripheral Bluetooth device.";
+NSCameraUsageDescription="The app needs your permission to take pictures to change the photo.";
+NSPhotoLibraryUsageDescription="The app needs your permission to read the album phptos to change the photo.";
+NSBluetoothPeripheralUsageDescription="The app needs your permission to connect peripheral Bluetooth device.";
+

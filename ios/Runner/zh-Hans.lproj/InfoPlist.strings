@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by Willy Liu on 2021/6/23.
+  
+*/
+CFBundleDisplayName="优创生活健身";
+NSBluetoothAlwaysUsageDescription="为了连接周边蓝牙运动设备";
+NSCameraUsageDescription="为了访问相机拍照来添加头像";
+NSPhotoLibraryUsageDescription="为了读取相册照片来添加头像";
+NSBluetoothPeripheralUsageDescription="为了连接周边蓝牙运动设备";
