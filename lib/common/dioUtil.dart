@@ -16,7 +16,7 @@ class DioUtil {
   }
 
   DioUtil._init() {
-    final BaseOptions options = BaseOptions(headers: <String, Object>{'app_pass':RequestUrl.appPass}, connectTimeout: 5000, receiveTimeout: 10000);
+    final BaseOptions options = BaseOptions(headers: <String, Object>{'app_pass':RequestUrl.appPass}, connectTimeout: 10000, receiveTimeout: 10000);
     _dio ??= Dio(options);
   }
 //get请求

@@ -30,14 +30,8 @@ class UserPicturePageState extends State<UserPicturePage>{
                 // width: ScreenUtil().setWidth(540),
                 // height: ScreenUtil().setHeight(540),
                 child: Center(
-                  child: widget.userPicture == null ? DragScaleContainer(
-                    doubleTapStillScale: false,
-                    child: Image.asset("images/home_user.png"),
-                  )
-                      : DragScaleContainer(
-                    doubleTapStillScale: false,
-                    child: Image.file(File(widget.userPicture)),
-                  ),
+                  child: widget.userPicture == null ? Image.asset('images/home_user.png')
+                      : Image.file(File(widget.userPicture)),
                 ),
               ),
             ),

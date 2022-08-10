@@ -232,7 +232,7 @@ class AboutPageState extends State<AboutPage> {
                 padding:
                 EdgeInsets.only(right: 31.w),
                 child: Text(
-                  'V1.3.1',
+                  'V1.3.2',
                   style: TextStyle(fontSize: 21.sp),
                 ),
               ),

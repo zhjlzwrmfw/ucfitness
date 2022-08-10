@@ -143,10 +143,11 @@ class RecordPageState extends State<RecordPage>{
   //从云端获取历史数据
   Future _getNetSportData(int deviceType, int timeArea) async {
     if(historyData == null){
+      sportMDSet.clear();
       await DioUtil().get(//为了拿到运动日历
         RequestUrl.historySportDataUrl,
         queryParameters: {"equipmentType": 0, "page": 0, "userId": SaveData.userId, "zone": DateTime.now().timeZoneOffset.inHours},
-        options: Options(headers: {'access_token': SaveData.accessToken, "app_pass": RequestUrl.appPass}, sendTimeout: 5000, receiveTimeout: 10000,),
+        options: Options(headers: {'access_token': SaveData.accessToken, "app_pass": RequestUrl.appPass}, sendTimeout: 10000, receiveTimeout: 10000,),
       ).then((value){
         print('value: $value');
         if(value != null){
@@ -170,7 +171,7 @@ class RecordPageState extends State<RecordPage>{
     return DioUtil().get(
         RequestUrl.getStatisticsUrl,
         queryParameters: {"equipmentType": deviceType, 'timeArea': timeArea, 'userId': SaveData.userId},
-        options: Options(headers: {'access_token': SaveData.accessToken, 'app_pass': RequestUrl.appPass}, sendTimeout: 5000, receiveTimeout: 10000,)
+        options: Options(headers: {'access_token': SaveData.accessToken, 'app_pass': RequestUrl.appPass}, sendTimeout: 10000, receiveTimeout: 10000,)
     ).then((value){
       print('设备的数据: $value');
       if(value != null){
@@ -575,9 +576,7 @@ class RecordPageState extends State<RecordPage>{
       if(connectivityResult == ConnectivityResult.none){
         Method.showToast('It seems that there is no internet'.tr, context);
       }else{
-        print('hkkhkhjkhkhkisNull');
         Method.showLessLoading(context, 'Loading2'.tr);
-        print('srdsdghdfgdfghdf');
         if(sportDeviceName == 'total'){
           _getNetSportData(0, timeArea);
           deviceTimeList = [0, timeArea];
@@ -936,18 +935,16 @@ class RecordPageState extends State<RecordPage>{
                           highlightColor: Colors.white10,
                           child: Text('All Time'.tr, style: TextStyle(fontWeight: FontWeight.normal,),),
                           onPressed: () {
-                            setState(() {
-                              totalData = true;
-                              todayData = false;
-                              weekData = false;
-                              monthData = false;
-                              choseWhichDay = null;
-                              choseWhichDuration = null;
-                              if (onclickCountList[6] == 0) {
-                                _onclickTimeData(0);
-                                onclickCountList = [0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
-                              }
-                            });
+                            totalData = true;
+                            todayData = false;
+                            weekData = false;
+                            monthData = false;
+                            choseWhichDay = null;
+                            choseWhichDuration = null;
+                            if (onclickCountList[6] == 0) {
+                              _onclickTimeData(0);
+                              onclickCountList = [0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
+                            }
                           },
                         ),
                       ),
@@ -965,18 +962,16 @@ class RecordPageState extends State<RecordPage>{
                           highlightColor: Colors.white10,
                           child: Text('Day'.tr, style: TextStyle(fontWeight: FontWeight.normal,),),
                           onPressed: () {
-                            setState(() {
-                              todayData = true;
-                              totalData = false;
-                              weekData = false;
-                              monthData = false;
-                              choseWhichDuration = '今日';
-                              choseWhichDay = null;
-                              if (onclickCountList[7] == 0) {
-                                _onclickTimeData(3);
-                                onclickCountList = [0, 0, 0, 0, 0, 0, 0, 1, 0, 0];
-                              }
-                            });
+                            todayData = true;
+                            totalData = false;
+                            weekData = false;
+                            monthData = false;
+                            choseWhichDuration = '今日';
+                            choseWhichDay = null;
+                            if (onclickCountList[7] == 0) {
+                              _onclickTimeData(3);
+                              onclickCountList = [0, 0, 0, 0, 0, 0, 0, 1, 0, 0];
+                            }
                           },
                         ),
                       ),
@@ -994,20 +989,17 @@ class RecordPageState extends State<RecordPage>{
                           highlightColor: Colors.white10,
                           child: Text('Week'.tr, style: TextStyle(fontWeight: FontWeight.normal,),),
                           onPressed: () {
-                            setState(() {
-                              totalData = false;
-                              todayData = false;
-                              weekData = true;
-                              monthData = false;
-                              //新添加的从这里开始
-                              choseWhichDuration = '周';
-                              choseWhichDay = null;
-                              if (onclickCountList[8] == 0) {
-                                _onclickTimeData(2);
-                                onclickCountList = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0];
-                              }
-                              //从这里结束
-                            });
+                            totalData = false;
+                            todayData = false;
+                            weekData = true;
+                            monthData = false;
+                            //新添加的从这里开始
+                            choseWhichDuration = '周';
+                            choseWhichDay = null;
+                            if (onclickCountList[8] == 0) {
+                              _onclickTimeData(2);
+                              onclickCountList = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0];
+                            }
                           },
                         ),
                       ),
@@ -1025,18 +1017,16 @@ class RecordPageState extends State<RecordPage>{
                           splashColor: Colors.white10,
                           highlightColor: Colors.white10,
                           onPressed: () {
-                            setState(() {
-                              totalData = false;
-                              todayData = false;
-                              weekData = false;
-                              monthData = true;
-                              choseWhichDuration = '月';
-                              choseWhichDay = null;
-                              if (onclickCountList[9] == 0) {
-                                _onclickTimeData(4);
-                                onclickCountList = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
-                              }
-                            });
+                            totalData = false;
+                            todayData = false;
+                            weekData = false;
+                            monthData = true;
+                            choseWhichDuration = '月';
+                            choseWhichDay = null;
+                            if (onclickCountList[9] == 0) {
+                              _onclickTimeData(4);
+                              onclickCountList = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+                            }
                           },
                         ),
                       ),
@@ -1831,23 +1821,23 @@ class _LineChartSample2State extends State<LineChartSample2> {
                 return DateTime.now().toString().substring(5,10);
             }
             return '';
-          } : widget.choseWhichDay == null && !widget.isYear?  (value) {
+          } : widget.choseWhichDay == null && !widget.isYear && widget.totalYear.isNotEmpty ?  (value) {
             switch (value.toInt()){
               case 1:
                 return widget.totalYear[0];
               case 2:
-                return widget.totalYear[1];
+                return widget.totalYear.length > 1 ? widget.totalYear[1] : '';
               case 3:
-                return widget.totalYear[2];
+                return widget.totalYear.length > 2 ? widget.totalYear[2] : '';
               case 4:
-                return widget.totalYear[3];
+                return widget.totalYear.length > 3 ? widget.totalYear[3] : '';
               case 5:
-                return widget.totalYear[4];
+                return widget.totalYear.length > 4 ? widget.totalYear[4] : '';
               case 6:
-                return widget.totalYear[5];
+                return widget.totalYear.length > 5 ? widget.totalYear[5] : '';
             }
             return '';
-          } : (value) {
+          } : widget.totalYear.isNotEmpty ? (value) {
             switch (value.toInt()){
               case 1:
                 return widget.totalYear[0];
@@ -1875,7 +1865,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
                 return widget.totalYear.length > 11 ? widget.totalYear[11] : '';
             }
             return '';
-          },
+          } : (value){},
           margin: 6,
         ),
         leftTitles: SideTitles(
