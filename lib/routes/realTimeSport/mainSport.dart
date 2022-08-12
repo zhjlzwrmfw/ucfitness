@@ -1891,7 +1891,7 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
   Widget realTimeDataBuild(){
     return Container(
       width: 960.w,
-      height: 1196.h,
+      height: 1296.w,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(40.w)),
@@ -1957,12 +1957,12 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
             ),
           ),
           Positioned(
-            top: 180.h,
+            top: 196.w,
             child: RepaintBoundary(
               child: GetX<SportDataController>(
                 builder: (SportDataController controller){
                   return Container(
-                    height: 1016.w,
+                    height: 1100.w,
                     width: 960.w,
                     child: TestStatelessWidget(
                       second: controller.sportData.value.second,

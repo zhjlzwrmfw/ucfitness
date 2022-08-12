@@ -141,7 +141,7 @@ class DashBoardPainter extends CustomPainter {
     TextSpan motivatedTips1 = TextSpan(
         style: TextStyle(
             color: Color.fromRGBO(41, 51, 75, 1),
-            fontSize: 42.sp
+            fontSize: 42.w
         ),
         text: sportCount == null ? SaveData.english ? "let's start exercising!" : '开始运动吧!' : SaveData.english ? 'In motion...' : '正在运动,'
     );
@@ -157,7 +157,7 @@ class DashBoardPainter extends CustomPainter {
     TextSpan motivatedTips2 = TextSpan(
         style: TextStyle(
             color: Color.fromRGBO(41, 51, 75, 1),
-            fontSize: 60.sp
+            fontSize: 60.w
         ),
         text: SaveData.english ? 'Come on!' : '加油哦！'
     );
@@ -251,7 +251,8 @@ class TestStatelessWidget extends StatelessWidget {
           child: RepaintBoundary(
             child: Container(
               width: 880.w,
-              height: 1016.w,
+              height: 1116.w,
+              color: Colors.redAccent,
               child: CustomPaint(
                 painter: DashBoardPainter(
                     second: second,
@@ -310,7 +311,7 @@ class TestStatelessWidget extends StatelessWidget {
             ),
           ),
         Positioned(
-          bottom: 0,
+          bottom: 72.w,
           right: 48.w,
           child: RepaintBoundary(
             child: Container(
@@ -349,7 +350,7 @@ class TestStatelessWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 0,
+          bottom: 72.w,
           child: RepaintBoundary(
             child: Container(
               width: 220.w,
@@ -387,7 +388,7 @@ class TestStatelessWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 0,
+          bottom: 72.w,
           left: 48.w,
           child: RepaintBoundary(
             child: Container(
