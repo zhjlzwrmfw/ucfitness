@@ -777,7 +777,7 @@ class UserLoginRouteState extends State<UserLoginRoute> {
       DioUtil()
           .get(RequestUrl.sendPhoneNumberUrl,
           queryParameters: <String, Object>{
-            "areaCode": countryCode,
+            "areaCode": SaveData.countryCode,
             "phoneNumber": account,
             "businessType": "userPhoneLogin"
           },
@@ -864,7 +864,7 @@ class UserLoginRouteState extends State<UserLoginRoute> {
               'businessType': 'userMailLogin'
             }
                 : <String, Object>{
-              'areaCode': countryCode,
+              'areaCode': SaveData.countryCode,
               'code': captcha,
               'phoneNumber': account,
               'businessType': 'userPhoneLogin'

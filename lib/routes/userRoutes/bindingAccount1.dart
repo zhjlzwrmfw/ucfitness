@@ -113,7 +113,9 @@ class _BindingAccount1State extends State<BindingAccount1> {
       builder: () => GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: (){
-          FocusScope.of(context).requestFocus(FocusNode());
+          setState(() {
+            FocusScope.of(context).requestFocus(FocusNode());
+          });
         },
         child: Material(
           child: Scaffold(
@@ -216,6 +218,7 @@ class _BindingAccount1State extends State<BindingAccount1> {
                       ],
                       onChanged: (str) {
                         account = str;
+                        print(account);
                       },
                     ),
                   ),
@@ -278,7 +281,8 @@ class _BindingAccount1State extends State<BindingAccount1> {
                           ),
                           padding: EdgeInsets.zero,
                           splashColor: Colors.transparent,
-                          onPressed: isOnclick != 0 ||account.length==0? null : () {
+                          onPressed: isOnclick != 0 || account.isEmpty ? null : () {
+                            print('没进来?');
                             if(widget.bindingType==1||(widget.bindingType == 0 && emailMatcher.hasMatch(account))) {
                               sendCode = true;
                               _getCaptcha();

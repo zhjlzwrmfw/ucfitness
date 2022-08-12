@@ -87,7 +87,7 @@ class OtaPageState extends State<OtaPage> with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(540, 960),
+      designSize: const Size(1080, 1920),
       builder: () => Scaffold(
         appBar: AppBar(
           title: Text('OTA'.tr),
@@ -103,8 +103,8 @@ class OtaPageState extends State<OtaPage> with SingleTickerProviderStateMixin{
               children: <Widget>[
                 Positioned(
                   child: Container(
-                    width: 250.h,
-                    height: 250.h,
+                    width: 500.h,
+                    height: 500.h,
                     child: CircularProgressIndicator(
                       backgroundColor: Color.fromRGBO(249, 122, 53, 0.52),
                       strokeWidth: 12,
@@ -114,7 +114,7 @@ class OtaPageState extends State<OtaPage> with SingleTickerProviderStateMixin{
                   ),
                 ),
                 Positioned(
-                    child: Text(progress.toString() + '%',style: TextStyle(fontSize: 36.sp),)
+                    child: Text(progress.toString() + '%',style: TextStyle(fontSize: 72.sp),)
                 ),
               ],
             )

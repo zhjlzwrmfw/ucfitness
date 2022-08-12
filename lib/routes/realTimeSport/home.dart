@@ -160,7 +160,7 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
   void _onToDart(dynamic message) {
     switch (message['code']) {
       case '80001':
-        // homePage = true;
+        disconnect = false;
         Future.delayed(const Duration(milliseconds: 3000), () {
           if(!disconnect){
             if(Navigator.canPop(context)){

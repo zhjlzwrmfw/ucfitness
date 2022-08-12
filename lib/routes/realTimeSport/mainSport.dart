@@ -232,6 +232,9 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
   }
 
   void setInitData(){
+    playCompleted = true;
+    playCount = 0;
+    playAudioList.clear();
     sportState = 1;
     sportCount = null;
     bmpCount = null;
@@ -1154,7 +1157,7 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
       'singleCount'.tr, 'minute'.tr,
       'cm','kg','', 'Top coach'.tr
     ];
-    print('build');
+    print('Offset(${1080.w}, ${1920.h})');
     return hasEnter ? ScreenUtilInit(
       designSize: const Size(1080, 1920),
       builder: () => WillPopScope(
@@ -1918,7 +1921,8 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
                         : SaveData.english ? 'Time training' : '定时计数',
                       style: TextStyle(fontWeight: FontWeight.normal,fontSize: 48.sp),),
                     SizedBox(width: 10.w,),
-                    if(SaveData.deviceName.substring(0, 10) != BlueUuid.SmartGripBroadcast && SaveData.deviceName.substring(0, 12) != BlueUuid.HuaweiGripBroadcast)
+                    if((SaveData.deviceName.substring(0, 10) != BlueUuid.SmartGripBroadcast && SaveData.deviceName.substring(0, 12) != BlueUuid.HuaweiGripBroadcast)
+                        && sportCount == null)
                       RepaintBoundary(child: Image.asset('images/模式选择.png',width: 42.w,height: 42.h, alignment: Alignment.bottomLeft,)),
                   ],
                 ),
@@ -1958,7 +1962,7 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
               child: GetX<SportDataController>(
                 builder: (SportDataController controller){
                   return Container(
-                    height: 1016.h,
+                    height: 1016.w,
                     width: 960.w,
                     child: TestStatelessWidget(
                       second: controller.sportData.value.second,

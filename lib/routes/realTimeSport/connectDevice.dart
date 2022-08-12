@@ -189,7 +189,8 @@ class ConnectDevicePageState extends State<ConnectDevicePage> with SingleTickerP
 
         }
         break;
-      case "80001":
+      case '80001':
+        disconnect = false;
         Future<void>.delayed(const Duration(milliseconds: 3000), () {
           if(!disconnect){
             if(Navigator.canPop(context)){

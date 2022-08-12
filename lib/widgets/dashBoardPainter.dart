@@ -243,7 +243,6 @@ class TestStatelessWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('hahaha');
     return Stack(
       alignment: AlignmentDirectional.center,
       children: <Widget>[
@@ -252,7 +251,7 @@ class TestStatelessWidget extends StatelessWidget {
           child: RepaintBoundary(
             child: Container(
               width: 880.w,
-              height: 1016.h,
+              height: 1016.w,
               child: CustomPaint(
                 painter: DashBoardPainter(
                     second: second,
@@ -269,13 +268,13 @@ class TestStatelessWidget extends StatelessWidget {
         ),
         if(sportCount != null && (SaveData.deviceName.substring(0, 10) != BlueUuid.SmartGripBroadcast && SaveData.deviceName.substring(0, 12) != BlueUuid.HuaweiGripBroadcast))
           Positioned(
-              top: 488.h,
+              top: 488.w,
               // left: ScreenUtil().setWidth(185),
-              child: RepaintBoundary(child: Image.asset(SaveData.devicePicture, width: 301.w,height: 177.h,))
+              child: RepaintBoundary(child: Image.asset(SaveData.devicePicture, width: 301.w,height: 177.w,))
           ),
         if(sporting)
           Positioned(
-            top: sportCount == null ? 290.h : 220.h,
+            top: sportCount == null ? 290.w : 220.w,
             child: Text(
               SaveData.english ? 'Set' : '个数',
               style: TextStyle(
@@ -286,7 +285,7 @@ class TestStatelessWidget extends StatelessWidget {
           ),
         if(sporting)
           Positioned(
-            top: sportCount == null ? 350.h : 300.h,
+            top: sportCount == null ? 350.w : 300.w,
             child: RepaintBoundary(
               child: Text(
                 sportCount == null ? '-' : sportCount.toString(),
@@ -300,7 +299,7 @@ class TestStatelessWidget extends StatelessWidget {
           ),
         if(!sporting)
           Positioned(
-            top: 308.h,
+            top: 308.w,
             child: Text(
               startSport,
               style: TextStyle(
@@ -311,7 +310,7 @@ class TestStatelessWidget extends StatelessWidget {
             ),
           ),
         Positioned(
-          bottom: 96.h,
+          bottom: 0,
           right: 48.w,
           child: RepaintBoundary(
             child: Container(
@@ -350,7 +349,7 @@ class TestStatelessWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 96.h,
+          bottom: 0,
           child: RepaintBoundary(
             child: Container(
               width: 220.w,
@@ -388,7 +387,7 @@ class TestStatelessWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 96.h,
+          bottom: 0,
           left: 48.w,
           child: RepaintBoundary(
             child: Container(

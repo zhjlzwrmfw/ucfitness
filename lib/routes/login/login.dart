@@ -33,7 +33,7 @@ class LoginRouteState extends State<LoginRoute> {
   int second = 60;
   int isOnclick = 0;
   String account = '';
-  String countryCode = '86';
+  // String countryCode = '86';
   String captcha = '';
   LoginInfo loginInfo;
   List<int> _loginTypeList = [0, 1, 2];
@@ -702,7 +702,7 @@ class LoginRouteState extends State<LoginRoute> {
       DioUtil()
           .get(RequestUrl.sendPhoneNumberUrl,
           queryParameters: {
-            "areaCode": countryCode,
+            "areaCode": SaveData.countryCode,
             "phoneNumber": account,
             "businessType": "phoneLogin"
           },
@@ -786,7 +786,7 @@ class LoginRouteState extends State<LoginRoute> {
               "businessType": "mailLogin"
             }
                 : {
-              "areaCode": countryCode,
+              "areaCode": SaveData.countryCode,
               "code": captcha,
               "phoneNumber": account,
               "businessType": "phoneLogin"
