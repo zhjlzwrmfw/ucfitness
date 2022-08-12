@@ -169,7 +169,19 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
         || SaveData.deviceName.substring(0,16) == (BlueUuid.HuaWeiSkipBroadcast + 'GOD0')){
       SaveData.broadcastType = 1;
       SportInfoPageState.deviceName = '跳绳';
-      whichDevice = 'NT930';
+      if(SaveData.deviceName.substring(0,10) == BlueUuid.HeadSkipBroadcast + 'SR105'){
+        whichDevice = 'SR105';
+      }else if(SaveData.deviceName.substring(0,10) == BlueUuid.HeadSkipBroadcast + 'SR900'){
+        whichDevice = 'SR900';
+      }else if(SaveData.deviceName.substring(0,4) == BlueUuid.HeadSkipBroadcast){
+        whichDevice = 'NT930';
+      }else if(SaveData.deviceName.substring(0,13) == BlueUuid.sj500Broadcast){
+        whichDevice = 'SJ500';
+      }else if(SaveData.deviceName.substring(0,5) == BlueUuid.sj300Broadcast){
+        whichDevice = 'SJ300';
+      }else if(SaveData.deviceName.substring(0,16) == (BlueUuid.HuaWeiSkipBroadcast + 'GOD0')){
+        whichDevice = 'SJ300';
+      }
       _blueToothChannel.headSyncTime(hexSecondStr);
       Future.delayed(const Duration(milliseconds: 100),(){
         _blueToothChannel.customOrder('0200');
@@ -266,20 +278,19 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
       player.clearCache();
       player = null;
     }
-    if(HomePageState.homePage){
-      if(SaveData.deviceName.substring(0, 10) == BlueUuid.SmartGripBroadcast
-          || SaveData.deviceName.substring(0, 12) == BlueUuid.HuaweiGripBroadcast
-          || SaveData.deviceName.substring(0, 13) == BlueUuid.sj500Broadcast
-          || SaveData.deviceName.substring(0,4) == BlueUuid.HeadSkipBroadcast
-          || SaveData.deviceName.substring(0,16) == BlueUuid.HuaWeiSkipBroadcast  + 'GOD0'){
-        if(second != 0){
-          _blueToothChannel.customOrder('03060000');
-        }
+    if(SaveData.deviceName.substring(0, 10) == BlueUuid.SmartGripBroadcast
+        || SaveData.deviceName.substring(0, 12) == BlueUuid.HuaweiGripBroadcast
+        || SaveData.deviceName.substring(0, 13) == BlueUuid.sj500Broadcast
+        || SaveData.deviceName.substring(0, 5) == BlueUuid.sj300Broadcast
+        || SaveData.deviceName.substring(0,4) == BlueUuid.HeadSkipBroadcast
+        || SaveData.deviceName.substring(0,16) == BlueUuid.HuaWeiSkipBroadcast  + 'GOD0'){
+      if(second != 0){
+        _blueToothChannel.customOrder('03060000');
       }
-      Future<void>.delayed(const Duration(milliseconds: 200),(){
-        MyBluetoothPlugin.disConnectDevice(SaveData.deviceName);
-      });
     }
+    Future<void>.delayed(const Duration(milliseconds: 200),(){
+      MyBluetoothPlugin.disConnectDevice(SaveData.deviceName);
+    });
     setInitData();
     eleAmount = null;
   }
@@ -902,6 +913,7 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
   }
 //语音播报
   void _futurePlay(int sportCount){
+    print('playCompleted:$playCompleted');
     if(sportCount < 10000 && playCompleted){
       if(!SaveData.english){
         cnAudioPlay(sportCount);
@@ -954,24 +966,40 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
       playAudioList..add('个.wav')..add('10.wav')..add(sportCount.toString().substring(2, 3) + '.wav')
         ..add('0.wav')..add('千.wav');
     }else if(sportCount % 100 == 50 && sportCount > 1100){
-      playCount = 7;
-      player.play('1.wav', stayAwake: true);
-      playAudioList..add('加油.wav')..add('个.wav')..add('10.wav')..add('5.wav')
-        ..add('百.wav')..add(sportCount.toString().substring(1, 2) + '.wav')..add('千.wav');
+      if(sportCount.toString().substring(1, 2) == '0'){
+        playCount = 6;
+        player.play('${sportCount ~/ 1000}.wav', stayAwake: true);
+        playAudioList..add('加油.wav')..add('个.wav')..add('10.wav')..add('5.wav')
+          ..add(sportCount.toString().substring(1, 2) + '.wav')..add('千.wav');
+      }else{
+        playCount = 7;
+        player.play('${sportCount ~/ 1000}.wav', stayAwake: true);
+        playAudioList..add('加油.wav')..add('个.wav')..add('10.wav')..add('5.wav')
+          ..add('百.wav')..add(sportCount.toString().substring(1, 2) + '.wav')..add('千.wav');
+      }
     }else if(sportCount % 100 == 0){
       playCount = 5;
       player.play(sportCount.toString().substring(0, 1) + '.wav', stayAwake: true);
       playAudioList..add('加油.wav')..add('个.wav')..add('百.wav')
         ..add(sportCount.toString().substring(1, 2) + '.wav')..add('千.wav');
     }else{
-      playCount = 6;
-      player.play(sportCount.toString().substring(0, 1) + '.wav', stayAwake: true);
-      playAudioList..add('个.wav')..add('10.wav')..add(sportCount.toString().substring(2, 3) + '.wav')
-        ..add('百.wav')..add(sportCount.toString().substring(1, 2) + '.wav')..add('千.wav');
+      if(sportCount.toString().substring(1, 2) == '0'){
+        playCount = 5;
+        player.play(sportCount.toString().substring(0, 1) + '.wav', stayAwake: true);
+        playAudioList..add('个.wav')..add('10.wav')..add(sportCount.toString().substring(2, 3) + '.wav')
+          ..add('0.wav')..add('千.wav');
+      }else{
+        playCount = 6;
+        player.play(sportCount.toString().substring(0, 1) + '.wav', stayAwake: true);
+        playAudioList..add('个.wav')..add('10.wav')..add(sportCount.toString().substring(2, 3) + '.wav')
+          ..add('百.wav')..add(sportCount.toString().substring(1, 2) + '.wav')..add('千.wav');
+      }
+
     }
   }
   //英语语音播报
   void enAudioPlay(int sportCount){
+    print('播报');
     playCompleted = false;
     playAudioList.clear();
     if(sportCount < 100){
@@ -1025,11 +1053,21 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
         playAudioList..add('Go_for_it.wav')..add('Times.wav')
           ..add('0' + (sportCount % 100).toString() + '.wav')..add('And.wav')..add('Hundred.wav')
           ..add('0' + (sportCount % 1000 ~/ 100).toString() + '.wav')..add('Thousand.wav');
+      }else if(sportCount % 1000 < 100){
+        if(sportCount % 1000 == 50){
+          playCount = 5;
+          playAudioList..add('Go_for_it.wav')..add('Times.wav')..add('0' + (sportCount % 100).toString() + '.wav')
+            ..add('And.wav')..add('Thousand.wav');
+        }else{
+          playCount = 4;
+          playAudioList..add('Times.wav')..add('0' + (sportCount % 100).toString() + '.wav')..add('And.wav')..add('Thousand.wav');
+        }
       }else{
         playCount = 6;
         playAudioList..add('Times.wav')..add('0' + (sportCount % 100).toString() + '.wav')..add('And.wav')
           ..add('Hundred.wav')..add('0' + (sportCount % 1000 ~/ 100).toString() + '.wav')..add('Thousand.wav');
       }
+
     }
   }
 //设置获取运动日期
@@ -1073,7 +1111,7 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
   void _onToDartError(dynamic error) {
     switch (error.code) {
       case '90002':
-        HomePageState.homePage = false;
+        // HomePageState.homePage = false;
         disconnectToSaveData();
         Method.showToast('Device disconnected'.tr, context, second: 2);
         break;
@@ -1149,7 +1187,7 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
                 style: TextStyle(fontSize: 42.sp, color: Colors.white, ),
               ),
             ),
-            backgroundColor: Color.fromRGBO(249, 122, 53, 1),
+            backgroundColor: const Color.fromRGBO(249, 122, 53, 1),
             centerTitle: false,
             titleSpacing: 4,
             elevation: 0,
@@ -1192,10 +1230,12 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
                                 Navigator.push(context, MaterialPageRoute(
                                     builder: (context) => SportSettingPage())).then((value){
                                   _openStreamNotify();
-                                  if(value == 1 && mounted){
+                                  if(mounted){
                                     setState(() {
-                                      Method.showLessLoading(context, 'Loading2'.tr);
-                                      saveSportData();
+                                      if(value == 1){
+                                        Method.showLessLoading(context, 'Loading2'.tr);
+                                        saveSportData();
+                                      }
                                     });
                                   }
                                 });
@@ -1207,66 +1247,66 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
                               padding: EdgeInsets.zero,
                             ),
                           ),
-                          const PopupMenuDivider(height: 1.0),
-                          PopupMenuItemOverride<String>(
-                            value: 'value03',
-                            child: FlatButton.icon(
-                              onPressed: (){
-                                Navigator.of(context).pop();
-                                Navigator.push(context, MaterialPageRoute(
-                                    builder: (BuildContext context) => FasciaGunMainPage())).then((value){
-                                  _openStreamNotify();
-                                    });
-                                // huangDataList.clear();
-                                // onclickData = true;
-                                // _blueToothChannel.customOrder('0400');
-                                // Navigator.of(context).pop();
-                              },
-                              icon: Icon(Icons.data_usage),
-                              label: Text('获取数据'),
-                              highlightColor: Colors.transparent,
-                              splashColor: Colors.transparent,
-                              padding: const EdgeInsets.symmetric(horizontal: 0),
-                            ),
-                          ),
-                          const PopupMenuDivider(height: 1.0),
-                          PopupMenuItemOverride<String>(
-                            value: 'value04',
-                            child: FlatButton.icon(
-                              onPressed: (){
-                                Navigator.of(context).pop();
-                                showDialog<void>(
-                                  context: context,
-                                  builder: (BuildContext context){
-                                    return SimpleDialog(
-                                      title: const Text('校准方式'),
-                                      children: <Widget>[
-                                        SimpleDialogOption(
-                                          child: const Text('重写offset'),
-                                          onPressed: (){
-                                            Navigator.of(context).pop();
-                                            _blueToothChannel.customOrder('fead0101');
-                                          },
-                                        ),
-                                        SimpleDialogOption(
-                                          child: const Text('offset置零'),
-                                          onPressed: (){
-                                            Navigator.of(context).pop();
-                                            _blueToothChannel.customOrder('fead0102');
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                              icon: Icon(Icons.vpn_key),
-                              label: const Text('设备校准'),
-                              highlightColor: Colors.transparent,
-                              splashColor: Colors.transparent,
-                              padding: const EdgeInsets.symmetric(horizontal: 0),
-                            ),
-                          ),
+                          // const PopupMenuDivider(height: 1.0),
+                          // PopupMenuItemOverride<String>(
+                          //   value: 'value03',
+                          //   child: FlatButton.icon(
+                          //     onPressed: (){
+                          //       Navigator.of(context).pop();
+                          //       Navigator.push(context, MaterialPageRoute(
+                          //           builder: (BuildContext context) => FasciaGunMainPage())).then((value){
+                          //         _openStreamNotify();
+                          //           });
+                          //       // huangDataList.clear();
+                          //       // onclickData = true;
+                          //       // _blueToothChannel.customOrder('0400');
+                          //       // Navigator.of(context).pop();
+                          //     },
+                          //     icon: Icon(Icons.data_usage),
+                          //     label: Text('获取数据'),
+                          //     highlightColor: Colors.transparent,
+                          //     splashColor: Colors.transparent,
+                          //     padding: const EdgeInsets.symmetric(horizontal: 0),
+                          //   ),
+                          // ),
+                          // const PopupMenuDivider(height: 1.0),
+                          // PopupMenuItemOverride<String>(
+                          //   value: 'value04',
+                          //   child: FlatButton.icon(
+                          //     onPressed: (){
+                          //       Navigator.of(context).pop();
+                          //       showDialog<void>(
+                          //         context: context,
+                          //         builder: (BuildContext context){
+                          //           return SimpleDialog(
+                          //             title: const Text('校准方式'),
+                          //             children: <Widget>[
+                          //               SimpleDialogOption(
+                          //                 child: const Text('重写offset'),
+                          //                 onPressed: (){
+                          //                   Navigator.of(context).pop();
+                          //                   _blueToothChannel.customOrder('fead0101');
+                          //                 },
+                          //               ),
+                          //               SimpleDialogOption(
+                          //                 child: const Text('offset置零'),
+                          //                 onPressed: (){
+                          //                   Navigator.of(context).pop();
+                          //                   _blueToothChannel.customOrder('fead0102');
+                          //                 },
+                          //               ),
+                          //             ],
+                          //           );
+                          //         },
+                          //       );
+                          //     },
+                          //     icon: Icon(Icons.vpn_key),
+                          //     label: const Text('设备校准'),
+                          //     highlightColor: Colors.transparent,
+                          //     splashColor: Colors.transparent,
+                          //     padding: const EdgeInsets.symmetric(horizontal: 0),
+                          //   ),
+                          // ),
                         ] );
                   },
                 ),
@@ -1429,7 +1469,6 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
                               if(sportCount == null){
                                 autoStartSport();
                               }else{
-                                _streamSubscription.pause();
                                 Method.customDialog(
                                     context,
                                     'tips'.tr,
@@ -1451,7 +1490,6 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
                         } : null,
                         onLongPress: SaveData.deviceName.substring(0, 10) == BlueUuid.SmartGripBroadcast
                             || SaveData.deviceName.substring(0, 12) == BlueUuid.HuaweiGripBroadcast ? (){
-                          _streamSubscription.pause();
                           Method.customDialog(
                               context,
                               'tips'.tr,
@@ -1623,6 +1661,7 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
                 && SaveData.deviceName.substring(0, 12) != BlueUuid.HuaweiGripBroadcast
                 && (SaveData.deviceName.substring(0,4) == BlueUuid.HeadSkipBroadcast
                     || SaveData.deviceName.substring(0,13) == BlueUuid.sj500Broadcast
+                    || SaveData.deviceName.substring(0,5) == BlueUuid.sj300Broadcast
                     || SaveData.deviceName.substring(0,16) == BlueUuid.HuaWeiSkipBroadcast  + 'GOD0')){
               _blueToothChannel.headStartSport(setNumber);
               _blueToothChannel.headStartSport(setNumber);
@@ -1664,7 +1703,6 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
       sportMap['sportWeek'] = now.weekday.toString();
       SaveData.sportTime = sportMap['sportYMDHM'];//从这里结束
     }else{
-      _streamSubscription.pause();
       Method.customDialog(
           context,
           'tips'.tr,
@@ -1679,6 +1717,7 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
       if(SaveData.deviceName.substring(0, 10) == BlueUuid.SmartGripBroadcast
           || SaveData.deviceName.substring(0, 12) == BlueUuid.HuaweiGripBroadcast
           || SaveData.deviceName.substring(0, 13) == BlueUuid.sj500Broadcast
+          || SaveData.deviceName.substring(0, 5) == BlueUuid.sj300Broadcast
           || SaveData.deviceName.substring(0,4) == BlueUuid.HeadSkipBroadcast
           || SaveData.deviceName.substring(0,16) == BlueUuid.HuaWeiSkipBroadcast  + 'GOD0'){
         _blueToothChannel.customOrder('03060000');
@@ -1749,6 +1788,7 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
     if(SaveData.deviceName.substring(0, 10) == BlueUuid.SmartGripBroadcast
         || SaveData.deviceName.substring(0, 12) == BlueUuid.HuaweiGripBroadcast
         || SaveData.deviceName.substring(0, 13) == BlueUuid.sj500Broadcast
+        || SaveData.deviceName.substring(0, 5) == BlueUuid.sj300Broadcast
         || SaveData.deviceName.substring(0,4) == BlueUuid.HeadSkipBroadcast
         || SaveData.deviceName.substring(0,16) == BlueUuid.HuaWeiSkipBroadcast  + "GOD0"){
       _blueToothChannel.customOrder('03060000');

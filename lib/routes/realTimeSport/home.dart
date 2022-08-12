@@ -14,6 +14,7 @@ import 'package:running_app/common/requesrUrl.dart';
 import 'package:running_app/common/saveData.dart';
 import 'package:running_app/model/courseList.dart';
 import 'package:running_app/routes/course/courseDetailPage.dart';
+import 'package:running_app/routes/course/video_player_slider.dart';
 import 'package:running_app/routes/fasicaGun/fasicaGunMain.dart';
 import 'package:running_app/routes/realTimeSport/connectDevice.dart';
 import 'package:running_app/routes/userRoutes/userPicture.dart';
@@ -154,19 +155,23 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
     }
   }
 
+  bool disconnect = false;
+
   void _onToDart(dynamic message) {
     switch (message['code']) {
       case '80001':
-        homePage = true;
+        // homePage = true;
         Future.delayed(const Duration(milliseconds: 3000), () {
-          if(Navigator.canPop(context)){
-            Navigator.of(context).pop();
+          if(!disconnect){
+            if(Navigator.canPop(context)){
+              Navigator.of(context).pop();
+            }
+            Navigator.push<Object>(context, MaterialPageRoute(builder: (BuildContext context) {
+              return MainSportPage();
+            })).then((Object value){
+              _openStreamNotify();
+            });
           }
-          Navigator.push<Object>(context, MaterialPageRoute(builder: (BuildContext context) {
-            return MainSportPage();
-          })).then((Object value){
-            _openStreamNotify();
-          });
         });
         break;
       case '8000A':
@@ -204,8 +209,15 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
       case '90001':
         _canPopRoutes();
         print('90001');
+        disconnect = true;
         Method.showToast('Connect failed'.tr, context);
-        homePage = true;
+        // homePage = true;
+        break;
+      case '90002':
+        _canPopRoutes();
+        disconnect = true;
+        Method.showToast('Connect failed'.tr, context);
+        // homePage = true;
         break;
       case '90003':
         Method.showToast('Location permission required'.tr, context);
@@ -264,7 +276,7 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
                 top: 176.h,
                 child: GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => UserPicturePage(SaveData.pictureUrl))).then((value){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PkPage())).then((value){
                       getDeviceInfo();
                       _openStreamNotify();
                     });

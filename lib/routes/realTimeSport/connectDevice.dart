@@ -191,18 +191,20 @@ class ConnectDevicePageState extends State<ConnectDevicePage> with SingleTickerP
         break;
       case "80001":
         Future<void>.delayed(const Duration(milliseconds: 3000), () {
-          if(Navigator.canPop(context)){
-            Navigator.of(context).pop();
-          }
-          addDevice();
-          if(widget.courseType == null){
-            Navigator.push<Object>(context, MaterialPageRoute(builder: (BuildContext context) {
-              return MainSportPage();
-            })).then((Object value){
-              _streamSubscription = blueToothChannel.eventChannelPlugin.receiveBroadcastStream().listen(_onToDart, onError: _onToDartError);
-            });
-          }else{
-            Navigator.of(context).pop(true);
+          if(!disconnect){
+            if(Navigator.canPop(context)){
+              Navigator.of(context).pop();
+            }
+            addDevice();
+            if(widget.courseType == null){
+              Navigator.push<Object>(context, MaterialPageRoute(builder: (BuildContext context) {
+                return MainSportPage();
+              })).then((Object value){
+                _streamSubscription = blueToothChannel.eventChannelPlugin.receiveBroadcastStream().listen(_onToDart, onError: _onToDartError);
+              });
+            }else{
+              Navigator.of(context).pop(true);
+            }
           }
         });
         break;
@@ -235,15 +237,18 @@ class ConnectDevicePageState extends State<ConnectDevicePage> with SingleTickerP
     }
   }
 
+  bool disconnect = false;
 
   void _onToDartError(dynamic error) {
     switch (error.code) {
       case '90001':
         _canPopRoutes();
+        disconnect = true;
         Method.showToast('Connect failed'.tr, context);
         break;
       case '90002':
         _canPopRoutes();
+        disconnect = true;
         Method.showToast('Connect failed'.tr, context);
         break;
       case '90003':

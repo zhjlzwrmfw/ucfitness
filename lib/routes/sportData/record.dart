@@ -30,6 +30,9 @@ bool totalData = true;//判断用户点击选择日期
 bool todayData = false;//判断用户点击选择日期
 bool weekData = false;//判断用户点击选择日期
 bool monthData = false;//判断用户点击选择日期
+List<int> onclickCountList = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];//避免重复刷新
+///用户点击顶部设备选择判断列表
+List<bool> deviceOnClickList = <bool>[true, false, false, false, false, false, false];
 // bool skippingDevice = false;//跳绳数据选择判断值
 // bool pullDevice = false;//拉力绳数据选择判断值
 // bool butterflyDevice = false;//蝴蝶绳数据选择判断值
@@ -91,7 +94,6 @@ class RecordPageState extends State<RecordPage>{
 
   var _futureBuilderFuture;//避免重复请求刷新
   StatisticsData _statisticsData;
-  List<int> onclickCountList = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];//避免重复刷新
   HistoryData historyData;
   var connectivityResult;
   int length;//运动日历长度
@@ -601,17 +603,19 @@ class RecordPageState extends State<RecordPage>{
         }
       }
     }else{
-      sportYearLength = 0;
-      sportYMLength = 0;
-      if(timeArea == 0){
-        _getSportData(sportDeviceName, false, whichDate: 100000);
-      }else if(timeArea == 4){
-        _getSportData(sportDeviceName, false, whichDate: 29);
-      }else if(timeArea == 2){
-        _getSportData(sportDeviceName, false, whichDate: 7);
-      }else if(timeArea == 3){
-        _getSportData(sportDeviceName, false, whichDate: 0);
-      }
+      setState(() {
+        sportYearLength = 0;
+        sportYMLength = 0;
+        if(timeArea == 0){
+          _getSportData(sportDeviceName, false, whichDate: 100000);
+        }else if(timeArea == 4){
+          _getSportData(sportDeviceName, false, whichDate: 29);
+        }else if(timeArea == 2){
+          _getSportData(sportDeviceName, false, whichDate: 7);
+        }else if(timeArea == 3){
+          _getSportData(sportDeviceName, false, whichDate: 0);
+        }
+      });
     }
   }
 
@@ -743,8 +747,6 @@ class RecordPageState extends State<RecordPage>{
   List<String> deviceControllerPicList = <String>['All data'.tr, 'images/tiaosheng.png',
     'images/lalisheng.png', 'images/hudiesheng .png', 'images/yaling.png', 'images/jianfulun.png'
     ,'images/wolihuan.png'];
-  ///用户点击顶部设备选择判断列表
-  List<bool> deviceOnClickList = <bool>[true, false, false, false, false, false, false];
   ///顶部设备名选择列表
   List<String> sportDeviceNameList = <String>['total', '跳绳', '拉力绳', '蝴蝶绳', '哑铃', '健腹轮', '握力环'];
   ///设备总体数据显示列表

@@ -1,322 +1,378 @@
-// import 'dart:async';
-// import 'package:common_utils/common_utils.dart';
-// import 'package:flutter/material.dart';
-// import 'package:video_player/video_player.dart';
-// import 'controller_widget.dart';
-// import 'video_player_control.dart';
-//
-// class VideoPlayerSlider extends StatefulWidget {
-//   final Function startPlayControlTimer;
-//   final Timer timer;
-//
-//   VideoPlayerSlider({this.startPlayControlTimer, this.timer});
-//
-//   @override
-//   _VideoPlayerSliderState createState() => _VideoPlayerSliderState();
-// }
-//
-// class _VideoPlayerSliderState extends State<VideoPlayerSlider> {
-//   VideoPlayerController get controller => ControllerWidget.of(context).controller;
-//   bool get videoInit => ControllerWidget.of(context).videoInit;
-//   double progressValue; //进度
-//   String labelProgress; //tip内容
-//   bool handle = false; //判断是否在滑动的标识
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     progressValue = 0.0;
-//     labelProgress = '00:00';
-//     print('initState');
-//   }
-//
-//   @override
-//   void didUpdateWidget(VideoPlayerSlider oldWidget) {
-//     super.didUpdateWidget(oldWidget);
-//     if (!handle && videoInit) {
-//       int position = controller.value.position.inMilliseconds;
-//       int duration = controller.value.duration.inMilliseconds;
-//       if(position>=duration){
-//         position=duration;
-//       }
-//       setState(() {
-//         progressValue = position / duration * 100;
-//         labelProgress = DateUtil.formatDateMs(
-//           progressValue.toInt(),
-//           format: 'mm:ss',
-//         );
-//       });
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     int position = controller.value.position.inMilliseconds;
-//     int duration = controller.value.duration.inMilliseconds;
-//     if(position>=duration){
-//       position=duration;
-//     }
-//     progressValue = position / duration * 100;
-//     labelProgress = DateUtil.formatDateMs(
-//       progressValue.toInt(),
-//       format: 'mm:ss',
-//     );
-//     return SliderTheme(
-//       //自定义风格
-//       data: SliderTheme.of(context).copyWith(
-//         //进度条滑块左边颜色
-//         inactiveTrackColor: Colors.white,
-//         overlayShape: RoundSliderOverlayShape(
-//           //可继承SliderComponentShape自定义形状
-//           overlayRadius: 7, //滑块外圈大小
-//         ),
-//         thumbShape: RoundSliderThumbShape(
-//           //可继承SliderComponentShape自定义形状
-//           disabledThumbRadius: 7, //禁用是滑块大小
-//           enabledThumbRadius: 7, //滑块大小
-//         ),
-//       ),
-//       child: Slider(
-//         value: progressValue,
-//         label: labelProgress,
-//         divisions: 100,
-//         onChangeStart: _onChangeStart,
-//         onChangeEnd: _onChangeEnd,
-//         onChanged: _onChanged,
-//         min: 0,
-//         max: 100,
-//         activeColor: Color.fromRGBO(249, 122, 53, 1),
-//       ),
-//     );
-//   }
-//
-//   void _onChangeEnd(_) {
-//     if (!videoInit) {
-//       return;
-//     }
-//     widget.startPlayControlTimer();
-//     // 关闭手动操作标识
-//     handle = false;
-//     // 跳转到滑动时间
-//     int duration = controller.value.duration.inMilliseconds;
-//     controller.seekTo(
-//       Duration(milliseconds: (progressValue / 100 * duration).toInt()),
-//     );
-// //    if (!controller.value.isPlaying) {
-// //      controller.play();
-// //    }
-//   }
-//
-//   void _onChangeStart(_) {
-//     if (!videoInit) {
-//       return;
-//     }
-//     if (widget.timer != null) {
-//       widget.timer.cancel();
-//     }
-//     // 开始手动操作标识
-//     handle = true;
-// //    if (controller.value.isPlaying) {
-// //      controller.pause();
-// //    }
-//   }
-//
-//   void _onChanged(double value) {
-//     if (!videoInit) {
-//       return;
-//     }
-//     if (widget.timer != null) {
-//       widget.timer.cancel();
-//     }
-//     int duration = controller.value.duration.inMilliseconds;
-//     setState(() {
-//       progressValue = value;
-//       labelProgress = DateUtil.formatDateMs(
-//         (value / 100 * duration).toInt(),
-//         format: 'mm:ss',
-//       );
-//     });
-//   }
-// }
 
-// import 'dart:async';
-// import 'dart:ui';
-//
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:running_app/common/blueToothChannel.dart';
-// import 'package:running_app/common/encapMethod.dart';
-//
-// class CustomOrderPage extends StatefulWidget {
-//   const CustomOrderPage({Key key}) : super(key: key);
-//
-//   @override
-//   _CustomOrderPageState createState() => _CustomOrderPageState();
-// }
-//
-// class _CustomOrderPageState extends State<CustomOrderPage> {
-//
-//   bool defaultOrderOne = true;
-//   bool defaultOrderTwo = true;
-//   bool updateOrder = false;
-//   String order = '';
-//   bool hasConnect = true;
-//   final BlueToothChannel _blueToothChannel = BlueToothChannel();
-//   StreamSubscription streamSubscriptions;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     streamSubscriptions = _blueToothChannel.eventChannelPlugin.receiveBroadcastStream().listen(_onToDart, onError: _onToDartError);
-//     Future.delayed(Duration.zero,(){
-//       Method.showToast('欢迎黄总使用！！！', context, position: 1, second: 2);
-//     });
-//   }
-//
-//   void _onToDart(dynamic message) {
-//     switch (message['code'] as String) {
-//       case '80001':
-//
-//         break;
-//     }
-//   }
-//
-//   void _onToDartError(dynamic error) {
-//     switch (error.code as String) {
-//       case '90002':
-//         break;
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     ScreenUtil.init(context, width: 540, height: 960, allowFontScaling: false);
-//     print('?????????????');
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('为黄总服务'),
-//         actions: [
-//           OutlineButton(
-//             child: Text(hasConnect ? updateOrder ? '可以修改' : '不能修改' : '未连接', style: TextStyle(color: Colors.white),),
-//             onPressed: (){
-//               setState(() {
-//                 if(updateOrder){
-//                   updateOrder = false;
-//                   defaultOrderOne = true;
-//                   defaultOrderTwo = true;
-//                 }else{
-//                   updateOrder = true;
-//                 }
-//               });
-//             },
-//           )
-//         ],
-//       ),
-//       body: GestureDetector(
-//         behavior: HitTestBehavior.translucent,
-//         onTap: () {
-//           FocusScope.of(context).requestFocus(FocusNode());
-//         },
-//         child: Center(
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: <Widget>[
-//               // if(!defaultOrderOne)
-//                 TextField(
-//                   decoration: InputDecoration(
-//                       suffixIcon: OutlineButton(
-//                         child: const Text('黄总请点击'),
-//                         onPressed: (){
-//                           _blueToothChannel.customOrder(order);
-//                         },
-//                       )
-//                   ),
-//                   onChanged: (String val){
-//                     order = val;
-//                   },
-//                 ),
-//               // if(!defaultOrderTwo)
-//               //   TextField(
-//               //     decoration: InputDecoration(
-//               //         suffixIcon: OutlineButton(
-//               //           child: const Text('黄总请点击'),
-//               //           onPressed: (){
-//               //             _blueToothChannel.customOrder(order);
-//               //           },
-//               //         )
-//               //     ),
-//               //     onChanged: (String val){
-//               //       order = val;
-//               //     },
-//               //   ),
-//               // if(defaultOrderOne)
-//               //   OutlineButton(
-//               //     child: const Text('黄总要的默认指令一'),
-//               //     onPressed: (){
-//               //       if(hasConnect){
-//               //         if(updateOrder){
-//               //           setState(() {
-//               //             defaultOrderOne = false;
-//               //           });
-//               //         }
-//               //       }else{
-//               //         Method.showToast('未连接设备', context);
-//               //       }
-//               //     },
-//               //   ),
-//               // if(defaultOrderTwo)
-//               //   OutlineButton(
-//               //     child: const Text('黄总要的默认指令二'),
-//               //     onPressed: (){
-//               //       if(hasConnect){
-//               //         if(updateOrder){
-//               //           setState(() {
-//               //             defaultOrderTwo = false;
-//               //           });
-//               //         }
-//               //       }else{
-//               //         Method.showToast('未连接设备', context);
-//               //       }
-//               //     },
-//               //   ),
-//             ],
-//           ),
-//         ),
-//       ),
-//       bottomSheet: Container(
-//         child: Row(
-//           children: <Widget>[
-//             Expanded(
-//               child: Container(
-//                 height: 50,
-//                 margin: EdgeInsets.only(left: 15, bottom: 10),
-//                 child: TextField(
-//                   decoration: InputDecoration(
-//                     hintText: '黄总请输入',
-//                     border: OutlineInputBorder()
-//                   ),
-//                   onChanged: (String val){
-//
-//                   },
-//                 ),
-//               ),
-//             ),
-//             Container(
-//               margin: EdgeInsets.only(left: 10, bottom: 10, right: 15),
-//               child: RaisedButton(
-//                 child: Text('发送'),
-//                 onPressed: () {},
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     _blueToothChannel.disConnect();
-//   }
-// }
+import 'dart:async';
+import 'dart:io';
+import 'dart:ui';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:running_app/common/blueToothChannel.dart';
+import 'package:running_app/common/dioUtil.dart';
+import 'package:running_app/common/encapMethod.dart';
+import 'package:running_app/common/fileImageEx.dart';
+import 'package:running_app/common/requesrUrl.dart';
+import 'package:running_app/common/saveData.dart';
+import 'package:running_app/model/courseList.dart';
+import 'package:running_app/routes/course/courseDetailPage.dart';
+import 'package:running_app/routes/fasicaGun/fasicaGunMain.dart';
+import 'package:running_app/routes/realTimeSport/connectDevice.dart';
+import 'package:running_app/routes/userRoutes/userPicture.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
+import '../../common/blueUuid.dart';
+import 'package:get/get.dart';
+
+class PkPage extends StatefulWidget{
+
+  @override
+  PkPageState createState() => PkPageState();
+
+}
+
+bool hasNetwork = false;
+CourseList courseList;
+bool getCourseSuccess = false;
+
+class PkPageState extends State<PkPage> with SingleTickerProviderStateMixin{
+
+  final BlueToothChannel blueToothChannel = BlueToothChannel();
+  StreamSubscription _streamSubscription; //广播流来处理EventChannel发来的消息
+  bool scanning = false;
+  static bool hasPicture = false;
+  bool hasDevice  = false;
+  List<String> devicePictureList = [];//添加设备图列表
+  List<String> deviceNameList = [];//用于连接设备需要的广播名
+  List<String> deviceList = [];//扫描到的设备列表
+  List<String> items = [];
+  int functionFlag;
+  String deviceName;
+  List<bool> connect = <bool>[false, false];
+
+  @override
+  void initState() {
+    super.initState();
+    if(SaveData.openedApp){
+      SaveData.openedApp = false;
+    }
+    getDeviceInfo();
+    if(hasPicture){
+      getTemporaryDirectory().then((value){
+        setState(() {
+          final File file = File(value.path + '/userImage.png');
+          print(file.existsSync());
+          if(file.existsSync()){
+            getApplicationSupportDirectory().then((value){
+              SaveData.pictureUrl = value.path + '/userImage.png';
+              file.copy(SaveData.pictureUrl).then((value){
+                SharedPreferences.getInstance().then((value){
+                  value.setString('pictureUrl', SaveData.pictureUrl);
+                });
+                file.deleteSync();
+              });
+            });
+          }else{
+            getApplicationSupportDirectory().then((value){
+              SaveData.pictureUrl = value.path + '/userImage.png';
+              print(SaveData.pictureUrl);
+              SharedPreferences.getInstance().then((value){
+                value.setString('pictureUrl', SaveData.pictureUrl);
+              });
+            });
+          }
+        });
+      });
+    }
+    _streamSubscription = blueToothChannel.eventChannelPlugin.receiveBroadcastStream().listen(_onToDart, onError: _onToDartError);
+  }
+
+  void getDeviceInfo(){
+    SharedPreferences.getInstance().then((value){
+      if(value.getBool('isCourse') != null){
+        SaveData.isCourse = value.getBool('isCourse');
+      }
+      if(value.getStringList('hasConnectDeviceBroadcast') != null && value.getStringList('hasConnectDeviceBroadcast').isNotEmpty){
+        if(mounted){
+          setState(() {
+            hasDevice = true;
+            devicePictureList = value.getStringList('hasConnectDevicePicture');
+            deviceList = value.getStringList('hasConnectDeviceName');
+            deviceNameList = value.getStringList('hasConnectDeviceBroadcast');
+          });
+        }
+      }
+    }).whenComplete((){
+      items = List<String>.generate(deviceList.length, (i) => 'Item ${i + 1}');
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if(_streamSubscription != null){
+      _streamSubscription.cancel();
+      _streamSubscription = null;
+    }
+  }
+
+  void _onToDart(dynamic message) {
+    switch (message['code']) {
+      case '80001':
+        break;
+      case '8000A':
+        getPermission();
+        break;
+      case '8000D':
+        getPermission();
+        break;
+      case '8000E':
+        getPermission();
+        break;
+    }
+  }
+
+  void getPermission() {
+    blueToothChannel.checkWhatPermission(context).then((bool value){
+      if(value){
+        if(functionFlag == 1){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ConnectDevicePage())).then((value){
+            getDeviceInfo();
+            _openStreamNotify();
+          });
+        }else if(functionFlag == 2){
+          Method.showLessLoading(context, 'Connecting'.tr);
+          blueToothChannel.connectDevice(deviceName, 0);
+        }
+      }
+    });
+  }
+
+  static bool homePage = true;
+
+  void _onToDartError(dynamic error) {
+    switch (error.code) {
+      case '90001':
+        _canPopRoutes();
+        print('90001');
+        Method.showToast('Connect failed'.tr, context);
+        homePage = true;
+        break;
+      case '90003':
+        Method.showToast('Location permission required'.tr, context);
+        _canPopRoutes();
+        break;
+      case '90004':
+        Method.showToast('Enable Location services'.tr, context);
+        _canPopRoutes();
+        break;
+      case '90005':
+        Method.showToast('Enable Bluetooth'.tr, context);
+        _canPopRoutes();
+        break;
+      case '90006':
+        _canPopRoutes();
+        break;
+      case '90007':
+        _canPopRoutes();
+        break;
+    }
+  }
+
+  void _canPopRoutes(){
+    if(Navigator.of(context).canPop()){
+      Navigator.of(context).pop();
+    }
+  }
+
+  void _openStreamNotify() {
+    _streamSubscription = blueToothChannel.eventChannelPlugin
+        .receiveBroadcastStream()
+        .listen(_onToDart, onError: _onToDartError); //注册消息回调函数
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      designSize: const Size(1080, 1920),
+      builder: () => Material(
+          color: const Color.fromRGBO(249, 122, 53, 1),
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Positioned(
+                left: 72.w,
+                top: 168.h,
+                child: Text('Welcome back'.tr, style: TextStyle(fontSize: 36.sp,color: Colors.white),),
+              ),
+              Positioned(
+                left: 72.w,
+                top: 216.h,
+                child: Text("let's start exercising!".tr,style: TextStyle(fontSize: 60.sp,color: Colors.white),),
+              ),
+              Positioned(
+                right: 72.w,
+                top: 176.h,
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => UserPicturePage(SaveData.pictureUrl))).then((value){
+                      getDeviceInfo();
+                      _openStreamNotify();
+                    });
+                  },
+                  child: Container(
+                      width: 114.h,
+                      height: 114.h,
+                      padding: EdgeInsets.all(0),
+                      // color: Colors.yellow,
+                      child: SaveData.pictureUrl == null ? Image.asset('images/home_user.png',width: 57.w,height: 57.h)
+                          : ClipOval(
+                        child: Image(image: FileImageEx(File(SaveData.pictureUrl)),),
+                      )
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 372.h,
+                child: Container(
+                  width: 1080.w,
+                  height: 1548.h,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(72.w),
+                          topRight: Radius.circular(72.w)),
+                      color: Colors.white),
+                ),
+              ),
+              Positioned(
+                top: 422.h,
+                child: Text(
+                  'Home'.tr,
+                  style: TextStyle(fontSize: 42.sp),
+                ),
+              ),
+              Positioned(
+                left: 494.w,
+                top: 501.h,
+                child: Container(
+                  width: 90.w,
+                  height: 3.h,
+                  decoration: BoxDecoration(color: Colors.black),
+                ),
+              ),
+              Positioned(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    InkWell(
+                      child: Container(
+                        width: 200.w,
+                        height: 200.w,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.18),
+                          borderRadius: BorderRadius.circular(100.w)
+                        ),
+                        child: !connect[0] ? Icon(Icons.add, color: Colors.black.withOpacity(0.7),) : SaveData.pictureUrl == null ? Image.asset('images/home_user.png')
+                            : Image.file(File(SaveData.pictureUrl)),
+                      ),
+                      onTap: (){
+                        // connectDevice();
+                      },
+                    ),
+                    InkWell(
+                      onTap: (){
+
+                      },
+                      child: Container(
+                        width: 200.w,
+                        height: 200.w,
+                        decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.18),
+                            borderRadius: BorderRadius.circular(100.w)
+                        ),
+                        child: !connect[0] ? Icon(Icons.add, color: Colors.black.withOpacity(0.7)) : SaveData.pictureUrl == null ? Image.asset('images/home_user.png')
+                            : Image.file(File(SaveData.pictureUrl)),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
+  }
+
+  void connectDevice(String deviceName){
+    if(defaultTargetPlatform == TargetPlatform.android){
+      blueToothChannel.checkWhatPermission(context).then((bool value){
+        if(value){
+          Method.showLessLoading(context, 'Connecting'.tr);
+          blueToothChannel.connectDevice(deviceName, 0);
+        }
+      });
+    }else{
+      Method.showLessLoading(context, 'Connecting'.tr);
+      blueToothChannel.connectDevice(deviceName, 0);
+    }
+  }
+
+  Widget buildConnectDevice(int i) {
+    final item = items[i];
+    return Dismissible(
+      key: Key(item),
+      child: Container(
+          height: 200.h,
+          margin: EdgeInsets.only(
+              right: 72.w, top: 24.w,left: 72.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(48.w),
+            color: const Color.fromRGBO(246, 247, 249, 1),
+          ),
+          child: Center(
+            child: ListTile(
+              contentPadding: EdgeInsets.only(left: 72.w, right: 72.w),
+              leading: Image.asset(
+                devicePictureList[i],
+                height: 110.h,
+              ),
+              title: Text(
+                deviceList[i],
+                style: TextStyle(fontSize: 48.sp, height: 1),
+              ),
+              trailing: Icon(Icons.check_circle),
+              onTap: (){
+                functionFlag = 2;
+                deviceName = deviceNameList[i];
+                if(defaultTargetPlatform == TargetPlatform.android){
+                  blueToothChannel.checkWhatPermission(context).then((bool value){
+                    if(value){
+                      Method.showLessLoading(context, 'Connecting'.tr);
+                      blueToothChannel.connectDevice(deviceNameList[i], 0);
+                    }
+                  });
+                }else{
+                  Method.showLessLoading(context, 'Connecting'.tr);
+                  blueToothChannel.connectDevice(deviceNameList[i], 0);
+                }
+              },
+            ),
+          )
+      ),
+      onDismissed: (DismissDirection direction){
+        setState(() {
+          items.removeAt(i);
+          devicePictureList.removeAt(i);
+          deviceList.removeAt(i);
+          deviceNameList.removeAt(i);
+          SharedPreferences.getInstance().then((value){
+            value.setStringList('hasConnectDevicePicture', devicePictureList);
+            value.setStringList('hasConnectDeviceName', deviceList);
+            value.setStringList('hasConnectDeviceBroadcast', deviceNameList);
+          });
+          if(deviceList.isEmpty){
+            hasDevice = false;
+          }
+        });
+      },
+    );
+  }
+}
