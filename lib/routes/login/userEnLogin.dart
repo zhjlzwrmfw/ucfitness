@@ -172,7 +172,9 @@ class UserEnLoginRouteState extends State<UserEnLoginRoute> {
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
+            setState(() {
+              FocusScope.of(context).requestFocus(FocusNode());
+            });
           },
           child: Scaffold(
             resizeToAvoidBottomInset: false,

@@ -164,9 +164,9 @@ class TotalRecordPageState extends State<TotalRecordPage> {
           ),
         ),
         Container(
-          width: index == 0 ? 69.w : 53.4.w,
-          height: index == 0 ? 38.h : 30.65.h,
-          margin: EdgeInsets.symmetric(horizontal: 11.w),
+          width: index == 0 ? 138.w : 108.w,
+          height: index == 0 ? 76.h : 62.h,
+          margin: EdgeInsets.symmetric(horizontal: 22.w),
           child: FlatButton(
               splashColor: Colors.white10,
               highlightColor: Colors.white10,
@@ -185,7 +185,7 @@ class TotalRecordPageState extends State<TotalRecordPage> {
               child: index == 0 ? Text(
                 'All data'.tr,
                 style: TextStyle(
-                  fontSize: 18.sp,
+                  fontSize: 36.sp,
                   color: choseDataTypeList[index] ? const Color.fromRGBO(38, 45, 68, 1) : const Color.fromRGBO(182, 188, 203, 1),
                   fontWeight: FontWeight.normal,),
               ) : Image.asset(deviceControllerPicList[index], color: choseDataTypeList[index] ? const Color.fromRGBO(38, 45, 68, 1) : const Color.fromRGBO(182, 188, 203, 1),)
@@ -194,8 +194,8 @@ class TotalRecordPageState extends State<TotalRecordPage> {
         Offstage(
           offstage: index == deviceControllerPicList.length - 1,
           child: Container(
-            width: 1.5.w,
-            height: 15.h,
+            width: 3.w,
+            height: 30.h,
             color: const Color.fromRGBO(197, 196, 199, 0.43),
           ),
         ),
@@ -212,7 +212,7 @@ class TotalRecordPageState extends State<TotalRecordPage> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(540, 960),
+      designSize: const Size(1080, 1920),
       builder: () => refreshBuild(),
     );
   }
@@ -221,9 +221,9 @@ class TotalRecordPageState extends State<TotalRecordPage> {
     length = length + 1;
     deleteValue.add(i);
     return Container(
-      width: 540.w,
+      width: 1080.w,
       child: FlatButton(
-        padding: EdgeInsets.only(left: 24.w, right: 24.w),
+        padding: EdgeInsets.only(left: 48.w, right: 48.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -233,22 +233,22 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                 RepaintBoundary(
                   child: Image(
                     image: AssetImage(_mapList[i]['devicePicture']),
-                    width: 78.w,
-                    height: 78.w,
+                    width: 156.w,
+                    height: 156.w,
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 12.w),
+                  padding: EdgeInsets.only(left: 24.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(bottom: 12.h),//top: ScreenUtil().setHeight(27),
+                        padding: EdgeInsets.only(bottom: 24.h),//top: ScreenUtil().setHeight(27),
                         child: Text(
                           SaveData.connectDeviceTypeStr(_mapList[i]['deviceName']) + '  ' + _mapList[i]['sportCount'].toString() + 'singleCount'.tr,
                           style: TextStyle(
-                              fontSize: 21.sp,
+                              fontSize: 42.sp,
                               fontWeight: FontWeight.normal,
                               color: Color.fromRGBO(38, 45, 68, 1)),
                         ),
@@ -258,30 +258,30 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                         children: [
                           RepaintBoundary(
                             child: Image.asset("images/recordtime.png",
-                                width: 16.w,
-                                height: 16.h),
+                                width: 32.w,
+                                height: 32.h),
                           ),
                           SizedBox(
-                            width: 6.w,
+                            width: 12.w,
                           ),
                           Text(
                             _getSportDuration(_mapList[i]['sportDuration'].toString()),
-                            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 18.sp,color: Color.fromRGBO(38, 45, 68, 1)),
+                            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 36.sp,color: Color.fromRGBO(38, 45, 68, 1)),
                           ),
                           SizedBox(
-                            width: 23.w,
+                            width: 46.w,
                           ),
                           RepaintBoundary(
                             child: Image.asset("images/recordkcal.png",
-                                width: 16.w,
-                                height: 16.h),
+                                width: 32.w,
+                                height: 32.h),
                           ),
                           SizedBox(
-                            width: 6.w,
+                            width: 12.w,
                           ),
                           Text(
                             _mapList[i]['sportKCal'].toString() + "kcal",
-                            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 18.sp,color: Color.fromRGBO(38, 45, 68, 1)),
+                            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 36.sp,color: Color.fromRGBO(38, 45, 68, 1)),
                           ),
                         ],
                       ),
@@ -297,12 +297,12 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                   style: TextStyle(fontWeight: FontWeight.normal,color: Color.fromRGBO(38, 45, 68, 0.45)),
                 ),
                 SizedBox(
-                  width: 10.w,
+                  width: 20.w,
                 ),
                 RepaintBoundary(
                   child: Image.asset("images/next.png",
-                      width: 15.w,
-                      height: 21.h),
+                      width: 30.w,
+                      height: 42.h),
                 ),
               ],
             )
@@ -373,10 +373,10 @@ class TotalRecordPageState extends State<TotalRecordPage> {
     length = length + 1;
     deleteValue.add(i);
     return Container(
-      width: 540.w,
+      width: 1080.w,
       // height: 100.h,
       child: FlatButton(
-        padding: EdgeInsets.only(left: 24.w, right: 24.w),
+        padding: EdgeInsets.only(left: 48.w, right: 48.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -385,11 +385,11 @@ class TotalRecordPageState extends State<TotalRecordPage> {
               children: <Widget>[
                 Image(
                   image: AssetImage(_mapList[i]['devicePicture']),
-                  width: 78.w,
-                  height: 78.w,
+                  width: 156.w,
+                  height: 156.w,
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 12.w),
+                  padding: EdgeInsets.only(left: 24.w),
                   // width: ScreenUtil().setWidth(305),
                   // color: Colors.red,
                   child: Column(
@@ -397,38 +397,38 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(bottom: 12.h),//top: ScreenUtil().setHeight(27),
+                        padding: EdgeInsets.only(bottom: 24.h),//top: ScreenUtil().setHeight(27),
                         child: Text(
                           SaveData.connectDeviceTypeStr(_mapList[i]['deviceName'])
                               + '  ' + _mapList[i]['sportCount'].toString() + 'singleCount'.tr,
-                          style: TextStyle(fontSize: 21.sp, color: Color.fromRGBO(38, 45, 68, 1), fontWeight: FontWeight.normal),
+                          style: TextStyle(fontSize: 42.sp, color: Color.fromRGBO(38, 45, 68, 1), fontWeight: FontWeight.normal),
                         ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset("images/recordtime.png",
-                              width: 16.w,
-                              height: 16.h),
+                              width: 32.w,
+                              height: 32.h),
                           SizedBox(
-                            width: 6.w,
+                            width: 12.w,
                           ),
                           Text(
                             _getSportDuration(_mapList[i]['sportDuration'].toString()),
-                            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 18.sp,color: Color.fromRGBO(38, 45, 68, 1)),
+                            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 36.sp,color: Color.fromRGBO(38, 45, 68, 1)),
                           ),
                           SizedBox(
-                            width: 23.w,
+                            width: 46.w,
                           ),
                           Image.asset("images/recordkcal.png",
-                              width: 16.w,
-                              height: 16.h),
+                              width: 32.w,
+                              height: 32.h),
                           SizedBox(
-                            width: 6.w,
+                            width: 12.w,
                           ),
                           Text(
                             _mapList[i]['sportKCal'].toString() + "kcal",
-                            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 18.sp,color: Color.fromRGBO(38, 45, 68, 1)),
+                            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 36.sp,color: Color.fromRGBO(38, 45, 68, 1)),
                           ),
                         ],
                       ),
@@ -439,7 +439,7 @@ class TotalRecordPageState extends State<TotalRecordPage> {
             ),
             Icon(
               Icons.check_circle,
-              size: 36.w,
+              size: 72.w,
               color: valueList[i] ? Color.fromRGBO(249, 122, 53, 1) : Colors.grey.withOpacity(0.4),
             )
           ],
@@ -541,7 +541,7 @@ class TotalRecordPageState extends State<TotalRecordPage> {
             child: Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
-              size: 21.w,
+              size: 42.w,
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -550,7 +550,7 @@ class TotalRecordPageState extends State<TotalRecordPage> {
           title: Text(
             'Exercise records'.tr,
             style: TextStyle(
-                fontSize: 21.sp, color: Colors.white),
+                fontSize: 42.sp, color: Colors.white),
           ),
           actions: <Widget>[
             FlatButton(
@@ -558,15 +558,15 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                   ? Text(
                 'Cancel'.tr,
                 style: TextStyle(
-                    fontSize: 21.sp,
+                    fontSize: 42.sp,
                     fontWeight: FontWeight.normal,
                     color: Colors.white),
                 textAlign: TextAlign.right,
               )
                   : Image.asset(
                 "images/edit.png",
-                width: 21.w,
-                height: 21.w,
+                width: 42.w,
+                height: 42.w,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -591,8 +591,8 @@ class TotalRecordPageState extends State<TotalRecordPage> {
             Positioned(
               top:0,
               child:Container(
-                width: 540.w,
-                height: 93.5.h,
+                width: 1080.w,
+                height: 187.h,
                 decoration: BoxDecoration(
                     color: Color.fromRGBO(249, 122, 53, 1)),
               ),
@@ -601,8 +601,8 @@ class TotalRecordPageState extends State<TotalRecordPage> {
             Positioned(
                 top: 0,
                 child: Container(
-                  width: 468.w,
-                  height: 93.5.h,
+                  width: 932.w,
+                  height: 187.h,
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(12),
@@ -642,7 +642,7 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                 )),
             if (SaveData.userId != null)
               Positioned(
-                top: 93.h,
+                top: 186.h,
                 child: FutureBuilder(
                   future: _futureBuilderFuture,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -650,11 +650,11 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                       case ConnectionState.waiting:
                         print('waiting');
                         return Padding(
-                          padding: EdgeInsets.only(top: 250.h),
+                          padding: EdgeInsets.only(top: 500.h),
                           child: Image.asset(
                             'images/tiger-animation-loop.gif',
-                            width: 150.w,
-                            height: 150.h,
+                            width: 300.w,
+                            height: 300.h,
                           ),
                         );
                       case ConnectionState.done:
@@ -664,13 +664,13 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                         return snapshot.hasError
                             ? Padding(
                           padding: EdgeInsets.only(
-                              top: 380.h,
-                              left: 100.w),
+                              top: 760.h,
+                              left: 200.w),
                           child: FlatButton(
                             child: Text(
                               'It seems that there is no internet'.tr,
                               style: TextStyle(
-                                  fontSize: 30.sp,
+                                  fontSize: 60.sp,
                                   fontWeight: FontWeight.normal,
                                   color: Colors.grey),
                             ),
@@ -682,13 +682,13 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                           ),
                         )
                             : Container(
-                          width: 540.w,
-                          height: 800.h,
+                          width: 1080.w,
+                          height: 1600.h,
                           child: Scrollbar(
                             child: ListView(
                               cacheExtent: 1920.h,
-                              itemExtent: 100.h,
-                              padding: EdgeInsets.only(top: 11.h),
+                              itemExtent: 200.h,
+                              padding: EdgeInsets.only(top: 22.h),
                               children: <Widget>[
                                 if (!onclickDelete)
                                   for (int i = _mapList.length - 1; i >= 0; i--)
@@ -713,13 +713,13 @@ class TotalRecordPageState extends State<TotalRecordPage> {
               ),
             if (SaveData.userId == null)
               Positioned(
-                top: 93.h,
+                top: 186.h,
                 child: Container(
-                  width: 540.w,
-                  height: 800.h,
+                  width: 1080.w,
+                  height: 1600.h,
                   child: ListView(
-                    itemExtent: 100.h,
-                    padding: EdgeInsets.only(top: 11.h),
+                    itemExtent: 200.h,
+                    padding: EdgeInsets.only(top: 22.h),
                     children: <Widget>[
                       if (!onclickDelete)
                         for (int i = _mapList.length - 1; i >= 0; i--)
@@ -732,7 +732,7 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                               choseDataTypeList[0])
                             deleteList(i),
                       SizedBox(
-                        height: 150.h,
+                        height: 300.h,
                       )
                     ],
                   ),
@@ -742,8 +742,8 @@ class TotalRecordPageState extends State<TotalRecordPage> {
               Positioned(
                 bottom: 0,
                 child: Container(
-                  width: 540.w,
-                  height: 86.5.h,
+                  width: 1080.w,
+                  height: 173.h,
                   color: Colors.white,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -752,7 +752,7 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           SizedBox(
-                            width: 24.w,
+                            width: 48.w,
                           ),
                           Checkbox(
                             value: totalDelete,
@@ -776,13 +776,13 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                           ),
                           Text(
                             'Select all'.tr,
-                            style: TextStyle(fontSize: 21.sp),
+                            style: TextStyle(fontSize: 42.sp),
                           ),
                         ],
                       ),
                       FlatButton.icon(
                         padding:
-                        EdgeInsets.only(right: 36.w),
+                        EdgeInsets.only(right: 72.w),
                         onPressed: valueList.contains(true) ? () {
                           Method.customDialog(
                             context,
@@ -793,13 +793,13 @@ class TotalRecordPageState extends State<TotalRecordPage> {
                         } : null,
                         icon: Image.asset(
                           valueList.contains(true)?"images/delete.png":"images/delete_grey.png",
-                          width: 30.w,
-                          height: 30.h,
+                          width: 60.w,
+                          height: 60.h,
                         ),
                         label: Text(
                           'Delete'.tr,
                           style: TextStyle(
-                              fontSize: 21.sp,
+                              fontSize: 42.sp,
                               fontWeight: FontWeight.normal,
                               color: valueList.contains(true)?Color.fromRGBO(237, 82, 84, 1):Color.fromRGBO(213, 213, 213, 1)),
                         ),
