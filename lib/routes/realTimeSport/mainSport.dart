@@ -213,9 +213,9 @@ class MainSportPageState extends State<MainSportPage> with SingleTickerProviderS
     });
   }
 
-  int playCount = 0;
+  static int playCount = 0;
   List<String> playAudioList = <String>[];
-  bool playCompleted  = true;
+  static bool playCompleted  = true;
 
   void playState(AudioPlayerState event){
     switch(event){

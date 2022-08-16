@@ -297,6 +297,10 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
     //切换前台时,可回调，初始化时，收不到回调
       case AppLifecycleState.resumed:
         notRefresh = false;
+        if(Platform.isIOS){
+          MainSportPageState.playCount = 0;
+          MainSportPageState.playCompleted = true;
+        }
         Future<void>.delayed(const Duration(seconds: 1),(){
           notRefresh = true;
         });

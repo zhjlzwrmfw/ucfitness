@@ -259,7 +259,7 @@ class EnLoginRouteState extends State<EnLoginRoute> {
                                   )),
                             ),
                             keyboardType: TextInputType.number,
-                            cursorColor: Color.fromRGBO(203, 207, 216, 1),
+                            cursorColor: const Color.fromRGBO(203, 207, 216, 1),
                             inputFormatters: [
                               WhitelistingTextInputFormatter.digitsOnly,
                               LengthLimitingTextInputFormatter(6),

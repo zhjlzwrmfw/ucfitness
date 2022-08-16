@@ -50,7 +50,9 @@ class _FindPwdRouteState extends State<FindPwdRoute> {
       builder: () => GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: (){
-          FocusScope.of(context).requestFocus(FocusNode());
+          setState(() {
+            FocusScope.of(context).requestFocus(FocusNode());
+          });
         },
         child: Material(
           child: Scaffold(

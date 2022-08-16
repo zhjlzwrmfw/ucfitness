@@ -252,7 +252,6 @@ class TestStatelessWidget extends StatelessWidget {
             child: Container(
               width: 880.w,
               height: 1116.w,
-              color: Colors.redAccent,
               child: CustomPaint(
                 painter: DashBoardPainter(
                     second: second,
