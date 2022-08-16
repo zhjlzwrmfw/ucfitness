@@ -335,6 +335,7 @@ class _BindingAccountState extends State<BindingAccount> {
               }
             });
           }else{//修改密码
+            Navigator.of(context).pop();
             Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePasswordRoute())).then((value){
               second = 60;
             });

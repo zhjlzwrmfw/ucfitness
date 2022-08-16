@@ -276,7 +276,7 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
                 top: 176.h,
                 child: GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PkPage())).then((value){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => UserPicturePage(SaveData.pictureUrl))).then((value){
                       getDeviceInfo();
                       _openStreamNotify();
                     });
