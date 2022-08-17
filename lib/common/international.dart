@@ -260,8 +260,10 @@ class Messages extends Translations {
       'deviceTypeError' : '请匹配正确的设备类型',
       'wrong device type' : '设备类型错误',
       'tips' : '温馨提示',
+      "SJ300" : "智能蓝牙跳绳 SJ300",
     },
     'en_US': {
+      "SJ300" : "Smart Jump Rope SJ300",
       'tips' : 'Tips',
       'wrong device type' : 'Wrong Device Type',
       'deviceTypeError' : 'Please match the correct device type',
