@@ -95,7 +95,7 @@ class ConnectDevicePageState extends State<ConnectDevicePage> with SingleTickerP
 
   void _onToDart(dynamic message) {
     switch (message['code']) {
-      case "80006": //如果是扫描到一个设备
+      case '80006': //如果是扫描到一个设备
         print('扫描到广播名为:' + message['deviceName']);
         deviceSubString = message['deviceName'] as String;
         if(deviceSubString.length > 14){
@@ -138,9 +138,9 @@ class ConnectDevicePageState extends State<ConnectDevicePage> with SingleTickerP
             deviceNameSet.add(message['deviceName'] as String);
             deviceSet.add('SJ300'.tr + ' - ' + deviceSubString.substring(deviceSubString.length - 4));
           }
-          if(deviceList.isNotEmpty){//如果扫到设备
-            firstFind = true;
-          }
+        }
+        if(deviceList.isNotEmpty){//如果扫到设备
+          firstFind = true;
         }
         break;
       case '80007': //如果是扫描结束
